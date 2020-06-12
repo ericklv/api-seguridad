@@ -10,6 +10,7 @@ import java.util.Map;
 
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 @RequestMapping(path = "/api")
 public class ApiController {
 
