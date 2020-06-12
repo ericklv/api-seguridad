@@ -4,10 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Vigenere {
-    private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private static final String alphabetDefault = "abcdefghijklmnopqrstuvwxyz";
 
     public static String standardLength(String text, String key){
         int textLength = text.length();
@@ -24,20 +23,20 @@ public class Vigenere {
         return newKey;
     }
 
+    public static String checkAlphabet_ (String alphabet) {
+        return StringUtils.isNotBlank(alphabet)? alphabet:alphabetDefault;
+    };
+
     public static String customEncrypt (String alphabet, String text, String key){
-        List<String> alphabet_ = Arrays.asList(alphabet.split(""));
+        List<String> alphabet_ = Arrays.asList(checkAlphabet_(alphabet).split(""));
         int length = alphabet_.size();
         String key_ = standardLength(text, key);
 
         return generateCustomCipher(alphabet_,text, key_, length,1);
     };
 
-    public static String checkAlphabet_ (String alphabet) {
-        return "";
-    };
-
     public static String customDecrypt (String alphabet, String text, String key){
-        List<String> alphabet_ = Arrays.asList(alphabet.split(""));
+        List<String> alphabet_ = Arrays.asList(checkAlphabet_(alphabet).split(""));
         int length = alphabet_.size();
         String key_ = standardLength(text, key);
 
