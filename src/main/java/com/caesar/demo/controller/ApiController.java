@@ -2,6 +2,7 @@ package com.caesar.demo.controller;
 
 import com.caesar.demo.service.CaesarCipher;
 import com.caesar.demo.service.Calculator;
+import com.caesar.demo.service.Escitala;
 import com.caesar.demo.service.Vigenere;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,6 +79,26 @@ public class ApiController {
         String key = (String) payload.get("key");
 
         return new HashMap<String, String>() {{ put("message",Vigenere.customDecrypt(alphabet,text, key));}};
+    }
+
+    @PostMapping(path="/escitala/encrypt", produces = "application/json")
+    public Map<String, String> escitalaEncryptPost(@RequestBody Map<String, Object> payload)
+    {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("sides");
+        Escitala escitala = new Escitala(key);
+
+        return new HashMap<String, String>() {{ put("message", escitala.encrypt(text));}};
+    }
+
+    @PostMapping(path="/escitala/decrypt", produces = "application/json")
+    public Map<String, String> escitalaDecryptPost(@RequestBody Map<String, Object> payload)
+    {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("sides");
+        Escitala escitala = new Escitala(key);
+
+        return new HashMap<String, String>() {{ put("message",escitala.decrypt(text));}};
     }
 
     @PostMapping(path="/caesar/encrypt/custom", produces = "application/json")
