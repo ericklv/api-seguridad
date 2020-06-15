@@ -1,5 +1,7 @@
 package com.caesar.demo.service;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +16,12 @@ public class CaesarCipher {
         return customEncrypt(alphabet,cipherText, -key);
     }
 
+    public static String checkAlphabet(String alphabet_){
+        return StringUtils.isNotBlank(alphabet_)?alphabet_: alphabet;
+    }
+
     public static String customEncrypt (String alphabet, String text, int key){
-        List<String> alphabet_ = Arrays.asList(alphabet.split(""));
+        List<String> alphabet_ = Arrays.asList(checkAlphabet(alphabet).split(""));
         int length = alphabet_.size();
 
         return generateCustomCipher(alphabet_,text, key, length);
