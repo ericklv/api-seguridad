@@ -110,4 +110,14 @@ public class ApiController {
 
         return new HashMap<String, String>() {{ put("message",CaesarCipher.customEncrypt(alphabet,text, key));}};
     }
+
+    @PostMapping(path="/caesar/decrypt/custom", produces = "application/json")
+    public Map<String, String> decryptPostCustom(@RequestBody Map<String, Object> payload)
+    {
+        String alphabet = (String) payload.get("alphabet");
+        String text = (String) payload.get("text");
+        int key = (int) payload.get("key");
+
+        return new HashMap<String, String>() {{ put("message",CaesarCipher.customDecrypt(alphabet,text, key));}};
+    }
 }
