@@ -81,7 +81,7 @@ public class ApiController {
         return new HashMap<String, String>() {{ put("message",Vigenere.customDecrypt(alphabet,text, key));}};
     }
 
-    @PostMapping(path="/escitala/encrypt", produces = "application/json")
+    @PostMapping(path="/scytale/encrypt", produces = "application/json")
     public Map<String, String> escitalaEncryptPost(@RequestBody Map<String, Object> payload)
     {
         String text = (String) payload.get("text");
@@ -92,7 +92,7 @@ public class ApiController {
         return new HashMap<String, String>() {{ put("message", Scytale.encrypt(text,key,Scytale.checkOrder(key,order)));}};
     }
 
-    @PostMapping(path="/escitala/decrypt", produces = "application/json")
+    @PostMapping(path="/scytale/decrypt", produces = "application/json")
     public Map<String, String> escitalaDecryptPost(@RequestBody Map<String, Object> payload)
     {
         String text = (String) payload.get("text");
