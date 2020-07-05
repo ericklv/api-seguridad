@@ -3,6 +3,9 @@ package com.caesar.demo.controller;
 import com.caesar.demo.service.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -121,5 +124,23 @@ public class ApiController {
         int key = (int) payload.get("key");
 
         return new HashMap<String, String>() {{ put("message",CaesarCipher.customDecrypt(alphabet,text, key));}};
+    }
+
+    @PostMapping(path="/rc4/encrypt/", produces = "application/json")
+    public Map<String, String> RC4Encrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+        RC4 rc = new RC4();
+
+        return new HashMap<String, String>() {{ put("message", rc.encryptMessage(text,key)); }};
+    }
+
+    @PostMapping(path="/rc4/decrypt/", produces = "application/json")
+    public Map<String, String> RC4Decrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+        RC4 rc = new RC4();
+
+        return new HashMap<String, String>() {{ put("message", rc.decryptMessage(text,key)); }};
     }
 }
