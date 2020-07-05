@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class RC4 {
     private static final int SBOX_LENGTH = 256;
-    private static final int KEY_MIN_LENGTH = 5;
+    private static final int KEY_MIN_LENGTH = 3;
     private static String key_error = "la longitud del key debe estar " + KEY_MIN_LENGTH + " y " + (SBOX_LENGTH - 1);
 
     private byte[] key = new byte[SBOX_LENGTH - 1];
