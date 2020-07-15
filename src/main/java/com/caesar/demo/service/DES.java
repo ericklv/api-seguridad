@@ -1,6 +1,7 @@
 package com.caesar.demo.service;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -44,7 +45,7 @@ public class DES {
         DESKeySpec key = null;
         String encryptedString = null;
         try {
-            key = new DESKeySpec(key_.getBytes());
+            key = new DESKeySpec(fixKey(key_).getBytes());
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             //Inicializamos para encriptar
             DES crypt = new DES(keyFactory.generateSecret(key));
@@ -59,7 +60,7 @@ public class DES {
         DESKeySpec key = null;
         String decryptedString = null;
         try {
-            key = new DESKeySpec(key_.getBytes());
+            key = new DESKeySpec(fixKey(key_).getBytes());
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             //Inicializamos para descencriptar
             DES crypt = new DES(keyFactory.generateSecret(key));
@@ -69,4 +70,9 @@ public class DES {
         }
         return  decryptedString;
     }
+
+    public static String fixKey (String key) {
+        //Completa la key en caso no tenga una longitud minima de 8 caracteres
+       return StringUtils.leftPad(key, 8, "0");
+    };
 }
