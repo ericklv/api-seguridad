@@ -138,4 +138,20 @@ public class ApiController {
 
         return new HashMap<String, String>() {{ put("message", rc.decryptMessage(text,key)); }};
     }
+
+    @PostMapping(path="/des/encrypt", produces = "application/json")
+    public Map<String, String> DESEncrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+
+        return new HashMap<String, String>() {{ put("message", DES.encrypt(text,key)); }};
+    }
+
+    @PostMapping(path="/des/decrypt", produces = "application/json")
+    public Map<String, String> DESDecrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+
+        return new HashMap<String, String>() {{ put("message", DES.decrypt(text,key)); }};
+    }
 }
