@@ -154,4 +154,23 @@ public class ApiController {
 
         return new HashMap<String, String>() {{ put("message", DES.decrypt(text,key)); }};
     }
+
+    @PostMapping(path="/rsa/encrypt", produces = "application/json")
+    public Map<String, String> RSAEncrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+
+        return new HashMap<String, String>() {{ put("message", RSA.encrypt(text));
+        put("kpublic", RSA.getkPublic());
+        put("kprivate", RSA.getkPrivate());
+        }};
+    }
+
+    @PostMapping(path="/rsa/decrypt", produces = "application/json")
+    public Map<String, String> RSADecrypt(@RequestBody Map<String, Object> payload) {
+        String text = (String) payload.get("text");
+        String key = (String) payload.get("key");
+
+        return new HashMap<String, String>() {{ put("message", RSA.decrypt(text,key)); }};
+    }
 }
